@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { useMemo, useContext } from "react";
+
+import { BrowserRouter as Router } from "react-router-dom";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
+import { ToastContainer } from "react-toastify";
+
+import { ThemeContext } from "context/themeContext";
+import { themeSettings } from "theme";
+import { Layout } from "components";
+
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
+  const { mode } = useContext(ThemeContext);
+  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <ToastContainer theme="dark" />
+        <Layout />
+      </ThemeProvider>
+    </Router>
   );
 }
 

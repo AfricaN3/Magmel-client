@@ -1,13 +1,47 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+
+html,
+body,
+#root,
+.app {
+  height: 100%;
+  width: 100%;
+  font-family: "Inter", sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #9986ac;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #553574;
+}
+
+/* Handle on Hover */
+::-webkit-scrollbar-track:hover {
+  background: #553574;
+}
+
+.wallet-adapter-button {
+  background-color: #553574;
+  color: #feece0;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+}
+
+.wallet-adapter-modal-wrapper {
+  background: #332046;
+}
+
+@media (max-width: 600px) {
+  .wallet-adapter-button {
+    text-align: center;
+    white-space: nowrap;
+  }
 }
