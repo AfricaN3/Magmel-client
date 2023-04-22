@@ -29,10 +29,11 @@ body,
 }
 
 .wallet-adapter-button {
-  background-color: #553574;
-  color: #feece0;
+  background-color: #fdc5a3;
+  color: #332046;
   font-family: "Inter", sans-serif;
   font-size: 16px;
+  height: 40px;
 }
 
 .wallet-adapter-modal-wrapper {
@@ -43,5 +44,7 @@ body,
   .wallet-adapter-button {
     text-align: center;
     white-space: nowrap;
+    width: 120px;
+    height: 40px;
   }
 }

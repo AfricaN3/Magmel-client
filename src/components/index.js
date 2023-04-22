@@ -2,7 +2,6 @@ export { default as Layout } from "./Layout";
 export { default as FlexBetween } from "./FlexBetween";
 export { default as Sidebar } from "./Sidebar";
 export { default as Navbar } from "./Navbar";
-export { default as Typing } from "./Typing";
 export { default as PageTitle } from "./PageTitle";
 export { default as NftList } from "./NftList";
 export { default as NftCard } from "./NftCard";
