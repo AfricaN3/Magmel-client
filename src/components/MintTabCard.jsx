@@ -60,6 +60,11 @@ const MintTabCard = ({
 
   const theme = useTheme();
 
+  const handleDialogSubmit = () => {
+    setOpenImage(false);
+    handleOnSubmit();
+  };
+
   const activeStep = useMemo(() => {
     if (generatedImageData.uri) {
       return 3;
@@ -115,7 +120,7 @@ const MintTabCard = ({
           </Button>
           <Button
             sx={{ color: theme.palette.secondary[100] }}
-            onClick={handleOnSubmit}
+            onClick={handleDialogSubmit}
             autoFocus
           >
             Mint NFT

@@ -30,7 +30,7 @@ const NftList = ({ data, emptyListMessage }) => {
           ))}
         </Box>
       ) : (
-        <ConnectWalletPage emptyListMessage={emptyListMessage} />
+        <ConnectWalletPage message={emptyListMessage} />
       )}
     </Box>
   );

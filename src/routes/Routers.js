@@ -17,11 +17,17 @@ import OwnerOnlyRoute from "./OwnerOnlyRoute";
 import { Layout } from "components";
 
 const Routers = () => {
-  const { myNfts, magmelNfts, totalSupply, userBalance, emitBlockchainCall } =
-    useReadNeo();
+  const {
+    myNfts,
+    magmelNfts,
+    totalSupply,
+    userBalance,
+    emitBlockchainCall,
+    gasBalance,
+  } = useReadNeo();
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Route path="/" element={<Layout gasBalance={gasBalance} />}>
         <Route path="/" element={<Navigate to="/home" replace />} />
         <Route path="/dashboard" element={<Dashboard myNfts={myNfts} />} />
         <Route path="/home" element={<Home />} />

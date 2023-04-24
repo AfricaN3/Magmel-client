@@ -29,16 +29,13 @@ import Identicon from "react-identicons";
 import FlexBetween from "components/FlexBetween";
 import { ThemeContext } from "context/themeContext";
 
-import useReadNeo from "hooks/useReadNeo";
 import { shortenAddress } from "utils";
 import { factor, identiconsPalette } from "constants";
 
-const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
+const Navbar = ({ isSidebarOpen, setIsSidebarOpen, gasBalance }) => {
   const { setTheme } = useContext(ThemeContext);
   const theme = useTheme();
   const { connected, address } = useWallet();
-
-  const { gasBalance } = useReadNeo();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const isOpen = Boolean(anchorEl);

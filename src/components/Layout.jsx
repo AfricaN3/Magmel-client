@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 
 import { Navbar, Sidebar } from "components";
 
-const Layout = () => {
+const Layout = ({ gasBalance }) => {
   const isNonMobile = useMediaQuery("(min-width: 600px)");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
@@ -21,6 +21,7 @@ const Layout = () => {
         <Navbar
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
+          gasBalance={gasBalance}
         />
         <Outlet />
       </Box>

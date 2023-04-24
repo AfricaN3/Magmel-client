@@ -86,10 +86,14 @@ const Dashboard = ({ myNfts }) => {
                   <>
                     <Grid item xs={12}>
                       <Box p={4}>
-                        <NftList
-                          data={myNfts}
-                          emptyListMessage="`You have no MAGMEL`"
-                        />
+                        {myNfts?.length > 0 ? (
+                          <NftList
+                            data={myNfts}
+                            emptyListMessage="You have no MAGMEL"
+                          />
+                        ) : (
+                          <ConnectWalletPage message="You have no MAGMEL" />
+                        )}
                       </Box>
                     </Grid>
                   </>

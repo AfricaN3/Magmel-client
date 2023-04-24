@@ -26,7 +26,7 @@ import {
   brainstormMessages,
 } from "constants";
 
-const Mint = () => {
+const Mint = ({ emitBlockchainCall }) => {
   const [currentTab, setCurrentTab] = useState("pureImagination");
   const [loading, setLoading] = useState(false);
 
@@ -211,7 +211,7 @@ const Mint = () => {
 
       toastMessage(
         "success",
-        "Image was successfully generated! Upload Image to IPFS for decentralized storage",
+        "Congratulations! Your MAGMEL NFT has been successfully created. You can now view your unique and creative image or mint it as an NFT.",
         8500
       );
 
@@ -317,10 +317,14 @@ const Mint = () => {
             result.data?.txId,
             true
           );
-          console.log(new_result);
           const sent = new_result[0];
           if (sent) {
-            toastMessage("success", "Transaction was successful", 5000);
+            toastMessage(
+              "success",
+              "Congratulations! You have successfully minted your NFT. Your unique piece of art is now a part of Magpie Melanges. You can now train your AI models by uploading your PDF files and chat with them. Start exploring the power of AI now!",
+              10000
+            );
+            emitBlockchainCall();
             navigate("/dashboard");
           } else {
             toastMessage("error", "Transaction was not successful", 5000);
