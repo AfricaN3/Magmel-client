@@ -139,6 +139,10 @@ function Messenger() {
     );
   }, [fileId]);
 
+  useEffect(() => {
+    setError(null);
+  }, [query, fileId]);
+
   const activatedFile = userFiles?.find((file) => file._id === fileId);
 
   //handle form submission
