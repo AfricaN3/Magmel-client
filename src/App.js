@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 
 import { ThemeContext } from "context/themeContext";
 import { themeSettings } from "theme";
-import { Layout } from "components";
+import Routers from "routes/Routers";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -19,7 +19,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <ToastContainer theme="dark" />
-        <Layout />
+        <Routers />
       </ThemeProvider>
     </Router>
   );

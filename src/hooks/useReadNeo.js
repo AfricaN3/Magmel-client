@@ -35,6 +35,12 @@ const useReadNeo = () => {
   const [amountPayable, setAmountPayable] = useState(mintFee);
   const [magmelNfts, setMagmelNfts] = useState([]);
   const [myNfts, setMyNfts] = useState([]);
+  const [userBalance, setUserBalance] = useState(0);
+  const [blockchainChanges, setBlockchainChanges] = useState(0);
+
+  const emitBlockchainCall = () => {
+    setBlockchainChanges((blockchainChanges) => blockchainChanges + 1);
+  };
 
   const rpcClient = useMemo(() => new rpc.RPCClient(rpcAddress), []);
 
@@ -142,6 +148,7 @@ const useReadNeo = () => {
           );
 
           let count = ownerBalanceResult.stack[0].value;
+          setUserBalance(parseInt(count));
           if (parseInt(count) >= 0) {
             let nftiterator = await rpcClient.traverseIterator(
               ownerTokensResult.session,
@@ -176,7 +183,7 @@ const useReadNeo = () => {
       setAmountPayable(mintFee);
       setMyNfts([]);
     }
-  }, [connected, address, rpcClient]);
+  }, [connected, address, rpcClient, blockchainChanges]);
 
   return {
     gasBalance,
@@ -185,6 +192,8 @@ const useReadNeo = () => {
     magmelNfts,
     myNfts,
     totalSupply,
+    userBalance,
+    emitBlockchainCall,
   };
 };
 

@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 
 import { Box, Container, Tabs, Tab, useTheme, Card, Grid } from "@mui/material";
 import { useWallet } from "@rentfuse-labs/neo-wallet-adapter-react";
+import { useNavigate } from "react-router-dom";
 
 import {
   PageTitle,
@@ -13,9 +14,10 @@ import {
 } from "components";
 import { ThemeContext } from "context/themeContext";
 
-const Files = () => {
+const Files = ({ userBalance }) => {
   const [currentTab, setCurrentTab] = useState("files");
   const theme = useTheme();
+  const navigate = useNavigate();
   const { connected } = useWallet();
   const { isLoadingFiles, userFiles, emitCall } = useContext(ThemeContext);
 
@@ -29,6 +31,10 @@ const Files = () => {
   };
 
   const buttonAction = () => {
+    if (userBalance < 1) {
+      navigate("/mint");
+      return;
+    }
     setCurrentTab("createFile");
   };
   return (
@@ -38,7 +44,7 @@ const Files = () => {
           heading="Your Uploaded Files"
           subHeading="Access and Manage Your Uploaded PDFs and Their AI Models"
           buttonAction={buttonAction}
-          buttonTitle={`${"Add Files"}`}
+          buttonTitle={userBalance < 1 ? "Mint MAGMEL" : `${"Add Files"}`}
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">
@@ -92,7 +98,10 @@ const Files = () => {
                 {currentTab === "createFile" && (
                   <Grid item xs={12}>
                     <Box p={4}>
-                      <FileCreate emitCall={emitCall} />
+                      <FileCreate
+                        emitCall={emitCall}
+                        userBalance={userBalance}
+                      />
                     </Box>
                   </Grid>
                 )}

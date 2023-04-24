@@ -31,13 +31,7 @@ axiosInstance.interceptors.response.use(
     // const originalRequest = error.config;
 
     if (typeof error.response === "undefined") {
-      toastMessage(
-        "error",
-        "A server/network error occurred. " +
-          "Looks like CORS might be the problem. " +
-          "Sorry about this - we will get it fixed shortly",
-        5000
-      );
+      toastMessage("error", "Please check your network ", 5000);
       return Promise.reject(error);
     }
 
@@ -56,6 +50,11 @@ axiosInstance.interceptors.response.use(
 
     if (error.response.status === 403) {
       toastMessage("error", `${error.response.data}`, 5000);
+      return Promise.reject(error);
+    }
+
+    if (error.response.status === 402) {
+      toastMessage("warning", `${error.response.data}`, 5000);
       return Promise.reject(error);
     }
 

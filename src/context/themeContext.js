@@ -73,19 +73,24 @@ const ThemeProvider = ({ children }) => {
   useEffect(() => {
     const loadFiles = async () => {
       try {
-        if (address) {
-          setIsLoadingFiles(true);
-          const response = await axiosInstance.get(`post/files/${address}/`);
-          setUserFiles(response.data);
-        }
+        setIsLoadingFiles(true);
+        const response = await axiosInstance.get(`post/files/${address}/`);
+        setUserFiles(response.data);
       } catch (error) {
         console.log(error);
       } finally {
         setIsLoadingFiles(false);
       }
     };
-    if (!!address) {
+    if (
+      !!address &&
+      !!token &&
+      wallet.getScriptHashFromPublicKey(token.publicKey) ===
+        wallet.getScriptHashFromAddress(address)
+    ) {
       loadFiles();
+    } else {
+      setUserFiles([]);
     }
   }, [address, fileChanges, token]);
 

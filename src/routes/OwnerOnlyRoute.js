@@ -11,7 +11,7 @@ const OwnerOnlyRoute = () => {
   const isOwnedByUser = userFiles?.find((file) => file._id === fileId);
 
   //if the user is there or not
-  return isOwnedByUser ? <Outlet /> : <Navigate to="/dashboard" />;
+  return isOwnedByUser ? <Outlet /> : <Navigate to="/dashboard" replace />;
 };
 
 export default OwnerOnlyRoute;

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 import { Box, useMediaQuery } from "@mui/material";
+import { Outlet } from "react-router-dom";
 
 import { Navbar, Sidebar } from "components";
-import Routers from "routes/Routers";
 
 const Layout = () => {
   const isNonMobile = useMediaQuery("(min-width: 600px)");
@@ -22,7 +22,7 @@ const Layout = () => {
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
         />
-        <Routers />
+        <Outlet />
       </Box>
     </Box>
   );

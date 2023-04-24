@@ -15,14 +15,16 @@ import {
 } from "@mui/material";
 import Dropzone from "react-dropzone";
 import { useWallet } from "@rentfuse-labs/neo-wallet-adapter-react";
+
 import axiosInstance from "api";
 import { toastMessage } from "utils";
+import ConnectWalletPage from "./ConnectWalletPage";
 
 const acceptedFiles = {
   "application/pdf": [".pdf"],
 };
 
-const FileCreate = ({ emitCall }) => {
+const FileCreate = ({ emitCall, userBalance }) => {
   const theme = useTheme();
   const { address } = useWallet();
   const isNonMobile = useMediaQuery("(min-width: 600px)");
@@ -76,6 +78,15 @@ const FileCreate = ({ emitCall }) => {
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();
+
+    if (userBalance < 1) {
+      toastMessage(
+        "error",
+        "Oops! Looks like you don't have any Magpie Melanges NFTs yet",
+        5000
+      );
+      return;
+    }
 
     try {
       setIsLoading(true);
@@ -139,6 +150,14 @@ const FileCreate = ({ emitCall }) => {
     >
       <CardHeader title="Upload PDF" />
       <Divider />
+      {userBalance < 1 && (
+        <ConnectWalletPage
+          message={
+            "Oops! Looks like you don't have any Magpie Melanges NFTs yet. To upload documents and train the AI, you must first mint an NFT. Don't worry, they're only 1 GAS each! Start your collection today."
+          }
+          severity={"warning"}
+        />
+      )}
       <CardContent>
         {isLoading && (
           <Box sx={{ width: "100%", color: theme.palette.secondary[400] }}>
