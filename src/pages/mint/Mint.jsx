@@ -8,7 +8,6 @@ import { helpers } from "@cityofzion/props";
 import { useNavigate } from "react-router-dom";
 
 import { toastMessage, getRandomPrompt } from "utils";
-import axiosInstance from "api";
 import {
   ConnectWalletPage,
   MintTabCard,
@@ -25,10 +24,12 @@ import {
   inspirationGeneratorMessages,
   brainstormMessages,
 } from "constants";
+import useAxiosPost from "hooks/useAxiosPost";
 
 const Mint = ({ emitBlockchainCall }) => {
   const [currentTab, setCurrentTab] = useState("pureImagination");
   const [loading, setLoading] = useState(false);
+  const { axiosInstance } = useAxiosPost();
 
   const isNonMobile = useMediaQuery("(min-width: 600px)");
   const { connected, address, invoke } = useWallet();

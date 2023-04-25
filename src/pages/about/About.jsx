@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 
 import { Grid, Container } from "@mui/material";
-import axiosInstance from "api";
 
 import { ProfileCover, RecentActivity } from "components";
+import useAxiosPost from "hooks/useAxiosPost";
 
 function About({ magmelNfts, totalSupply }) {
   const [stats, setStats] = useState({});
+  const { axiosInstance } = useAxiosPost();
 
   useEffect(() => {
     const getAboutPageStats = async () => {

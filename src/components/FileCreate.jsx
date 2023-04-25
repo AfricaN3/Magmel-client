@@ -16,15 +16,16 @@ import {
 import Dropzone from "react-dropzone";
 import { useWallet } from "@rentfuse-labs/neo-wallet-adapter-react";
 
-import axiosInstance from "api";
 import { toastMessage } from "utils";
 import ConnectWalletPage from "./ConnectWalletPage";
+import useAxiosPost from "hooks/useAxiosPost";
 
 const acceptedFiles = {
   "application/pdf": [".pdf"],
 };
 
 const FileCreate = ({ emitCall, userBalance }) => {
+  const { axiosInstance } = useAxiosPost();
   const theme = useTheme();
   const { address } = useWallet();
   const isNonMobile = useMediaQuery("(min-width: 600px)");

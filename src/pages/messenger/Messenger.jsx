@@ -19,8 +19,8 @@ import SidebarContent from "components/messenger/SidebarContent";
 import ChatContent from "components/messenger/ChatContent";
 import Scrollbar from "components/Scrollbar";
 import { toastMessage } from "utils";
-import axiosInstance from "api";
 import { ThemeContext } from "context/themeContext";
+import useAxiosPost from "hooks/useAxiosPost";
 
 const RootWrapper = styled(Box)(
   ({ theme }) => `
@@ -110,6 +110,7 @@ const initMessageState = {
 
 function Messenger() {
   const theme = useTheme();
+  const { axiosInstance } = useAxiosPost();
   const { userFiles } = useContext(ThemeContext);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { address } = useWallet();

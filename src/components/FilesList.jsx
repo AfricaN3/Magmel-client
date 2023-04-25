@@ -12,10 +12,11 @@ import { useNavigate } from "react-router-dom";
 import ChatTwoToneIcon from "@mui/icons-material/ChatTwoTone";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 
-import axiosInstance from "api";
 import { toastMessage } from "utils";
+import useAxiosPost from "hooks/useAxiosPost";
 
 const FilesList = ({ data, isLoading, emitCall }) => {
+  const { axiosInstance } = useAxiosPost();
   const navigate = useNavigate();
   const theme = useTheme();
   const [message, setMessage] = useState("");
