@@ -27,24 +27,23 @@ const ThemeProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    const neoFile = {
+      createdAt: "2023-04-22T06:15:35.182Z",
+      description: "Your go-to for Neo blockchain queries.",
+      file: NeoBotId,
+      name: "Neo Assistant",
+      owner: address,
+      publicId: "magmel/neoFile",
+      updatedAt: "2023-04-22T06:15:35.182Z",
+      __v: 0,
+      _id: NeoBotId,
+    };
     const loadFiles = async () => {
-      const neoFile = {
-        createdAt: "2023-04-22T06:15:35.182Z",
-        description: "Your go-to for Neo blockchain queries.",
-        file: NeoBotId,
-        name: "Neo Assistant",
-        owner: address,
-        publicId: "magmel/neoFile",
-        updatedAt: "2023-04-22T06:15:35.182Z",
-        __v: 0,
-        _id: NeoBotId,
-      };
       try {
         setIsLoadingFiles(true);
         const response = await axiosInstance.get(`post/files/${address}/`);
         const connectedUserFiles = response.data;
-        connectedUserFiles.push(neoFile);
-        setUserFiles(connectedUserFiles);
+        setUserFiles([neoFile, ...connectedUserFiles]);
       } catch (error) {
         console.log(error);
       } finally {
@@ -57,6 +56,7 @@ const ThemeProvider = ({ children }) => {
       wallet.getScriptHashFromPublicKey(token.publicKey) ===
         wallet.getScriptHashFromAddress(address)
     ) {
+      setUserFiles([neoFile]);
       loadFiles();
     } else {
       setUserFiles([]);
