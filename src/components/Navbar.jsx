@@ -25,17 +25,37 @@ import {
   useTheme,
 } from "@mui/material";
 import Identicon from "react-identicons";
+import { useNavigate } from "react-router-dom";
 
 import FlexBetween from "components/FlexBetween";
 import { ThemeContext } from "context/themeContext";
 
-import { shortenAddress } from "utils";
+import { shortenAddress, toastMessage } from "utils";
 import { factor, identiconsPalette } from "constants";
+import { NeoBotId } from "constants";
 
 const Navbar = ({ isSidebarOpen, setIsSidebarOpen, gasBalance }) => {
   const { setTheme } = useContext(ThemeContext);
+  const [isClicked, setIsClicked] = useState(false);
   const theme = useTheme();
   const { connected, address } = useWallet();
+  const navigate = useNavigate();
+
+  const handleSearchBar = () => {
+    if (!connected && !isClicked) {
+      toastMessage(
+        "info",
+        "Please connect your wallet to ask me anything about the NEO blockchain",
+        10000
+      );
+      setIsClicked(true);
+      return;
+    }
+    if (!connected) {
+      return;
+    }
+    navigate(`/chat/${NeoBotId}`);
+  };
 
   const [anchorEl, setAnchorEl] = useState(null);
   const isOpen = Boolean(anchorEl);
@@ -61,8 +81,15 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen, gasBalance }) => {
             borderRadius="9px"
             gap="3rem"
             p="0.1rem 1.5rem"
+            onClick={handleSearchBar}
           >
-            <InputBase placeholder="Search..." />
+            <InputBase
+              placeholder={
+                !connected
+                  ? "Connect wallet to ask about Neo"
+                  : "Ask me anything about NEO"
+              }
+            />
             <IconButton>
               <Search />
             </IconButton>

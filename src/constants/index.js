@@ -92,3 +92,5 @@ export const inspirationGeneratorMessages = [
   "Make It Official: View/Mint Your Custom NFT or Clear the previously generated image to create another",
   "Creation Claimed: Your Unique NFT is in your Wallet",
 ];
+
+export const NeoBotId = "NeoData";

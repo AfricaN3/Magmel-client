@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useMemo } from "react";
 
 import { useParams } from "react-router-dom";
 import {
@@ -21,6 +21,7 @@ import Scrollbar from "components/Scrollbar";
 import { toastMessage } from "utils";
 import { ThemeContext } from "context/themeContext";
 import useAxiosPost from "hooks/useAxiosPost";
+import { NeoBotId } from "constants";
 
 const RootWrapper = styled(Box)(
   ({ theme }) => `
@@ -96,18 +97,6 @@ const DrawerWrapperMobile = styled(Drawer)(
 `
 );
 
-const initMessageState = {
-  messages: [
-    {
-      message:
-        "Hello there! I'm the AI, your virtual companion. Let's dive into your PDF and unravel its secrets.",
-      type: "apiMessage",
-      time: new Date(),
-    },
-  ],
-  history: [],
-};
-
 function Messenger() {
   const theme = useTheme();
   const { axiosInstance } = useAxiosPost();
@@ -116,6 +105,34 @@ function Messenger() {
   const { address } = useWallet();
   const params = useParams();
   const fileId = params.fileId;
+
+  const initMessageState = useMemo(() => {
+    const initialMessage =
+      fileId !== NeoBotId
+        ? {
+            messages: [
+              {
+                message:
+                  "Hello there! I'm the AI, your virtual companion. Let's dive into your PDF and unravel its secrets.",
+                type: "apiMessage",
+                time: new Date(),
+              },
+            ],
+            history: [],
+          }
+        : {
+            messages: [
+              {
+                message:
+                  "Hello and welcome! I'm Neo Assistant, your go-to source for all things related to the NEO blockchain. What can I help you with today?",
+                type: "apiMessage",
+                time: new Date(),
+              },
+            ],
+            history: [],
+          };
+    return initialMessage;
+  }, [fileId]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -138,7 +155,7 @@ function Messenger() {
         ? JSON.parse(localStorage.getItem(`${fileId}`))
         : initMessageState
     );
-  }, [fileId]);
+  }, [fileId, initMessageState]);
 
   useEffect(() => {
     setError(null);
@@ -285,7 +302,11 @@ function Messenger() {
           </ChatTopBar>
           <Box flex={1}>
             <Scrollbar>
-              <ChatContent messages={messages} activatedFile={activatedFile} />
+              <ChatContent
+                isNeoBot={fileId === NeoBotId}
+                messages={messages}
+                activatedFile={activatedFile}
+              />
             </Scrollbar>
           </Box>
 
@@ -304,6 +325,7 @@ function Messenger() {
             query={query}
             setQuery={setQuery}
             error={error}
+            isNeoBot={fileId === NeoBotId}
           />
         </ChatWindow>
       </RootWrapper>

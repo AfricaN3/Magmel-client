@@ -14,8 +14,10 @@ import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 
 import { toastMessage } from "utils";
 import useAxiosPost from "hooks/useAxiosPost";
+import { NeoBotId } from "constants";
 
 const FilesList = ({ data, isLoading, emitCall }) => {
+  const renderedData = data.filter((file) => file._id !== NeoBotId);
   const { axiosInstance } = useAxiosPost();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -129,7 +131,7 @@ const FilesList = ({ data, isLoading, emitCall }) => {
         <DataGrid
           loading={isLoading || loading}
           getRowId={(row) => row._id}
-          rows={data || []}
+          rows={renderedData || []}
           columns={columns}
         />
       </Box>

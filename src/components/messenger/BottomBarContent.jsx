@@ -29,6 +29,7 @@ function BottomBarContent({
   query,
   setQuery,
   error,
+  isNeoBot,
 }) {
   const theme = useTheme();
   const { address } = useWallet();
@@ -58,6 +59,8 @@ function BottomBarContent({
             placeholder={
               loading
                 ? "I'm thinking...🤔"
+                : isNeoBot
+                ? "Ask me anything about the NEO blockchain"
                 : "How can I help you unlock the secrets in your PDF?"
             }
             fullWidth

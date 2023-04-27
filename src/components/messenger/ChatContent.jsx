@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from "react";
 
 import { Box, Avatar, Typography, Card, styled, useTheme } from "@mui/material";
 
@@ -14,10 +14,13 @@ import { FlexBetween } from "components";
 
 import avatar2 from "assets/images/avatars/bot.png";
 
-
 const CardWrapperPrimary = styled(Card)(
   ({ theme }) => `
-      background: ${theme.palette.mode === "dark" ? theme.palette.background.dark : theme.palette.background.darker};
+      background: ${
+        theme.palette.mode === "dark"
+          ? theme.palette.background.dark
+          : theme.palette.background.darker
+      };
       color: ${theme.palette.primary.contrastText};
       padding: ${theme.spacing(1.5)};
       border-radius: ${theme.general.borderRadiusXl};
@@ -30,7 +33,11 @@ const CardWrapperPrimary = styled(Card)(
 const CardWrapperSecondary = styled(Card)(
   ({ theme }) => `
       background: ${theme.colors.alpha.black[10]};
-      color: ${theme.palette.mode === "dark" ? theme.palette.grey[100]: theme.palette.grey[700]};
+      color: ${
+        theme.palette.mode === "dark"
+          ? theme.palette.grey[100]
+          : theme.palette.grey[700]
+      };
       padding: ${theme.spacing(1.5)};
       border-radius: ${theme.general.borderRadiusXl};
       border-top-left-radius: ${theme.general.borderRadius};
@@ -39,21 +46,19 @@ const CardWrapperSecondary = styled(Card)(
 `
 );
 
-function ChatContent({ messages, activatedFile }) {
-  const messagesEndRef = useRef(null)
+function ChatContent({ messages, activatedFile, isNeoBot }) {
+  const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const { address } = useWallet();
   const theme = useTheme();
 
   useEffect(() => {
-    scrollToBottom()
+    scrollToBottom();
   }, [messages]);
-
-   
 
   return (
     <Box p={3}>
@@ -104,9 +109,14 @@ function ChatContent({ messages, activatedFile }) {
                     addSuffix: true,
                   })}
                 </Typography>
-                {message.sourceDocs && <SourceDocs sourceDocs={message.sourceDocs} index={index}/>}
+                {message.sourceDocs && (
+                  <SourceDocs
+                    isNeoBot={isNeoBot}
+                    sourceDocs={message.sourceDocs}
+                    index={index}
+                  />
+                )}
               </FlexBetween>
-              
             </Box>
           </Box>
         ) : (
@@ -128,27 +138,28 @@ function ChatContent({ messages, activatedFile }) {
                 <ReactMarkdown>{message?.message}</ReactMarkdown>
               </CardWrapperPrimary>
               <FlexBetween>
-              <Typography
-                variant="subtitle1"
-                sx={{
-                  pt: 1,
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                <ScheduleTwoToneIcon
+                <Typography
+                  variant="subtitle1"
                   sx={{
-                    mr: 0.5,
+                    pt: 1,
+                    display: "flex",
+                    alignItems: "center",
                   }}
-                  fontSize="small"
-                />
-                {formatDistance(new Date(message?.time), new Date(), {
-                  addSuffix: true,
-                })}
-              </Typography>
-              {message.sourceDocs && <SourceDocs sourceDocs={message.sourceDocs} index={index}/>}
+                >
+                  <ScheduleTwoToneIcon
+                    sx={{
+                      mr: 0.5,
+                    }}
+                    fontSize="small"
+                  />
+                  {formatDistance(new Date(message?.time), new Date(), {
+                    addSuffix: true,
+                  })}
+                </Typography>
+                {message.sourceDocs && (
+                  <SourceDocs sourceDocs={message.sourceDocs} index={index} />
+                )}
               </FlexBetween>
-              
             </Box>
             <Avatar
               variant="rounded"

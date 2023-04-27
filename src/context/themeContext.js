@@ -4,6 +4,7 @@ import { useWallet } from "@rentfuse-labs/neo-wallet-adapter-react";
 import { wallet } from "@cityofzion/neon-js";
 
 import useAxiosPost from "hooks/useAxiosPost";
+import { NeoBotId } from "constants";
 
 export const ThemeContext = createContext();
 
@@ -27,10 +28,23 @@ const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     const loadFiles = async () => {
+      const neoFile = {
+        createdAt: "2023-04-22T06:15:35.182Z",
+        description: "Your go-to for Neo blockchain queries.",
+        file: NeoBotId,
+        name: "Neo Assistant",
+        owner: address,
+        publicId: "magmel/neoFile",
+        updatedAt: "2023-04-22T06:15:35.182Z",
+        __v: 0,
+        _id: NeoBotId,
+      };
       try {
         setIsLoadingFiles(true);
         const response = await axiosInstance.get(`post/files/${address}/`);
-        setUserFiles(response.data);
+        const connectedUserFiles = response.data;
+        connectedUserFiles.push(neoFile);
+        setUserFiles(connectedUserFiles);
       } catch (error) {
         console.log(error);
       } finally {
