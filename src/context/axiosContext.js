@@ -12,7 +12,7 @@ let baseURL;
 if (NODE_ENV === "development") {
   baseURL = "http://localhost:5001/api/v1/";
 } else {
-  baseURL = "https://magmel-backend.onrender.com/api/v1/";
+  baseURL = "https://magmel.onrender.com/api/v1/";
 }
 
 const config = {
